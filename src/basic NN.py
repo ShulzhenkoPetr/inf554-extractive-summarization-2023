@@ -4,11 +4,13 @@ from sklearn.metrics import accuracy_score
 from pathlib import Path
 import torch_geometric 
 
+
 def flatten(list_of_list):
     return [item for sublist in list_of_list for item in sublist]
 
-path_to_training = Path("training")
-path_to_test = Path("test")
+
+path_to_training = Path("../dataset/training")
+path_to_test = Path("../dataset/test")
 
 #####
 # training and test sets of transcription ids
@@ -34,7 +36,7 @@ for transcription_id in test_set:
     
     test_labels[transcription_id] = [1] * len(transcription)
 
-with open("test_labels_naive_baseline.json", "w") as file:
+with open("../submissions/test_labels_naive_baseline.json", "w") as file:
     json.dump(test_labels, file, indent=4)
 
 #####
@@ -46,7 +48,7 @@ from sentence_transformers import SentenceTransformer
 bert = SentenceTransformer('all-MiniLM-L6-v2')
 
 y_training = []
-with open("training_labels.json", "r") as file:
+with open("../dataset/training_labels.json", "r") as file:
     training_labels = json.load(file)
 X_training = []
 for transcription_id in training_set:
@@ -114,5 +116,5 @@ for transcription_id in test_set:
     y_test = np.round(model.forward(X_test_tensor).detach().numpy())
     test_labels[transcription_id] = [int(i) for i in flatten(y_test.tolist())]
 
-with open("test_labels.json", "w") as file:
+with open("../submissions/test_labels.json", "w") as file:
     json.dump(test_labels, file, indent=4)

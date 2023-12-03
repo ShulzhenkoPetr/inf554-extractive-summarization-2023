@@ -10,8 +10,10 @@ from numpy.linalg import norm
 from torch_geometric.data import Data
 import networkx as nx
 
+
 def flatten(list_of_list):
     return [item for sublist in list_of_list for item in sublist]
+
 
 training_set = ['ES2002']
 training_set = ['ES2002', 'ES2005', 'ES2006', 'ES2007', 'ES2008', 'ES2009', 'ES2010', 'ES2012', 'ES2013', 'ES2015', 'ES2016', 'IS1000', 'IS1001', 'IS1002', 'IS1003', 'IS1004', 'IS1005', 'IS1006', 'IS1007', 'TS3005', 'TS3008', 'TS3009', 'TS3010', 'TS3011', 'TS3012']
@@ -25,15 +27,16 @@ test_set = ['ES2003']
 test_set = ['ES2003', 'ES2004', 'ES2011', 'ES2014', 'IS1008', 'IS1009', 'TS3003', 'TS3004', 'TS3006', 'TS3007']
 test_set = flatten([[m_id+s_id for s_id in 'abcd'] for m_id in test_set])
 
-path_to_training = Path("training")
-path_to_test = Path("test")
+path_to_training = Path("../dataset/training")
+path_to_test = Path("../dataset/test")
 
 y_training = []
 
-with open("training_labels.json", "r") as file:
+with open("../dataset/training_labels.json", "r") as file:
     training_labels = json.load(file)
 for train_id in training_set:
     y_training.append(training_labels[train_id])
+
 
 def process_data(conversation_set, path):
     Bert_training = []
@@ -80,6 +83,7 @@ def process_data(conversation_set, path):
     data = [Data(x=node_features[i], edge_index=edge_tensor[i], edge_attr=edge_attr[i]) for i in range(n_examples)]
 
     return data
+
 
 data_training = process_data(training_set, path_to_training)
 n_features = data_training[0].x.shape[1]
@@ -137,5 +141,5 @@ for i in range(n_tests):
     y_test_expected = np.round(model(dataset.x, dataset.edge_index, dataset.edge_attr).detach().numpy())
     test_labels[test_set[i]] = [int(i) for i in flatten(y_test_expected.tolist())]
 
-with open("test_labels.json", "w") as file:
+with open("../submissions/test_labels.json", "w") as file:
     json.dump(test_labels, file, indent=4)
