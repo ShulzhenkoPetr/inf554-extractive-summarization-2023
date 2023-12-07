@@ -82,7 +82,7 @@ def finetune_bert():
     # )
     #
     # trainer.train()
-    lr = 5e-5
+    lr = 5e-4
     optimizer = Adam(model.parameters(), lr=lr)
     scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.1)
     loss_fn = torch.nn.CrossEntropyLoss()
