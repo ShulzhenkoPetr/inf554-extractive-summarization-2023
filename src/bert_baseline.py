@@ -112,6 +112,10 @@ def finetune_bert():
         loss.backward()
         optimizer.step()
 
+        if i % 100 == 0:
+            run.log({'batch_loss': np.mean(batch_train_loss),
+                     'batch_f1': np.mean(batch_train_f1)})
+
     if (i + 1) % eval_steps == 0:
         val_loss, val_f1 = evaluate_bert(model, val_dataloader, device)
         train_loss = np.mean(batch_train_loss)
