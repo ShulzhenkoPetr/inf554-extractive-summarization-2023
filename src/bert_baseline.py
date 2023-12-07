@@ -27,8 +27,8 @@ def evaluate_bert(model, val_dataloader, device):
         for inputs in val_dataloader:
             inputs = inputs.to(device)
             preds = model(**inputs)
-            loss.append(loss_fn(preds.detach(), inputs['labels']))
-            f1_scores.append(f1_metric(preds.detach().cpu().numpy().argmax(axis=1), inputs['labels']))
+            loss.append(loss_fn(preds.detach(), inputs['labels']).cpu().item())
+            f1_scores.append(f1_metric(preds.detach().cpu().numpy().argmax(axis=1), inputs['labels'].cpu()))
 
     return np.mean(loss), np.mean(f1_scores)
 
@@ -97,7 +97,7 @@ def finetune_bert():
         }
     )
 
-    for epoch in tqdm.tqdm(range(num_epochs)):
+    for epoch in range(num_epochs):
         model.train()
         batch_train_loss = []
         batch_train_f1 = []
@@ -105,7 +105,7 @@ def finetune_bert():
             inputs = inputs.to(device)
             optimizer.zero_grad()
             outputs = model(inputs['input_ids'], inputs['attention_mask'])
-            batch_train_f1.append(f1_metric(outputs.detach().cpu().numpy().argmax(axis=1), inputs['labels']))
+            batch_train_f1.append(f1_metric(outputs.detach().cpu().numpy().argmax(axis=1), inputs['labels'].cpu()))
             loss = loss_fn(outputs, inputs['labels'])
             batch_train_loss.append(loss.detach().cpu())
             loss.backward()
