@@ -18,16 +18,17 @@ from utils.custom_datasets import UtterancesBertDataset
 from utils.metrics import accuracy_metric, f1_metric
 
 
-def evaluate_bert(model, val_dataloader):
+def evaluate_bert(model, val_dataloader, device):
     model.eval()
     loss = []
     f1_scores = []
     loss_fn = torch.nn.CrossEntropyLoss()
     with torch.no_grad():
         for inputs in val_dataloader:
+            inputs = inputs.to(device)
             preds = model(**inputs)
             loss.append(loss_fn(preds.detach(), inputs['labels']))
-            f1_scores.append(f1_metric(preds.detach().numpy().argmax(axis=1), inputs['labels']))
+            f1_scores.append(f1_metric(preds.detach().cpu().numpy().argmax(axis=1), inputs['labels']))
 
     return np.mean(loss), np.mean(f1_scores)
 
@@ -104,14 +105,14 @@ def finetune_bert():
             inputs = inputs.to(device)
             optimizer.zero_grad()
             outputs = model(inputs['input_ids'], inputs['attention_mask'])
-            batch_train_f1.append(f1_metric(outputs.detach().numpy().argmax(axis=1), inputs['labels']))
+            batch_train_f1.append(f1_metric(outputs.detach().cpu().numpy().argmax(axis=1), inputs['labels']))
             loss = loss_fn(outputs, inputs['labels'])
             batch_train_loss.append(loss.detach().cpu())
             loss.backward()
             optimizer.step()
 
         if (i + 1) % eval_steps == 0:
-            val_loss, val_f1 = evaluate_bert(model, val_dataloader)
+            val_loss, val_f1 = evaluate_bert(model, val_dataloader, device)
             train_loss = np.mean(batch_train_loss)
             train_f1 = np.mean(batch_train_f1)
 
