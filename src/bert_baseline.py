@@ -26,7 +26,7 @@ def evaluate_bert(model, val_dataloader, device):
     with torch.no_grad():
         for inputs in val_dataloader:
             inputs = inputs.to(device)
-            preds = model(**inputs)
+            preds = model(inputs['input_ids'], inputs['attention_mask'])
             loss.append(loss_fn(preds.detach(), inputs['labels']).cpu().item())
             f1_scores.append(f1_metric(preds.detach().cpu().numpy().argmax(axis=1), inputs['labels'].cpu()))
 
