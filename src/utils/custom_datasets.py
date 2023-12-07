@@ -68,6 +68,6 @@ class UtterancesBertDataset(Dataset):
 
         enc = self.tokenizer(utt, max_length=self.max_len, return_tensors='pt',
                              padding=True, truncation=True)
+        enc['label'] = self.labels[idx]
 
-        return enc, self.labels[idx]
-
+        return enc
