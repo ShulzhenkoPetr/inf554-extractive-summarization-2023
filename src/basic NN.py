@@ -9,8 +9,8 @@ def flatten(list_of_list):
     return [item for sublist in list_of_list for item in sublist]
 
 
-path_to_training = Path("../dataset/training")
-path_to_test = Path("../dataset/test")
+path_to_training = Path("dataset/all_training_data")
+path_to_test = Path("dataset/test")
 
 #####
 # training and test sets of transcription ids
@@ -48,7 +48,7 @@ from sentence_transformers import SentenceTransformer
 bert = SentenceTransformer('all-MiniLM-L6-v2')
 
 y_training = []
-with open("../dataset/training_labels.json", "r") as file:
+with open("dataset/training_labels.json", "r") as file:
     training_labels = json.load(file)
 X_training = []
 for transcription_id in training_set:

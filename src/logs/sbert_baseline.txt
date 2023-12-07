@@ -1,0 +1,2 @@
+default sbert model with DecisionTree has on val set: accuracy=0.7772013920808983 and f1_score=0.3968
+default sbert model to_lower_case with DecisionTree has on val set: accuracy=0.7790399894937291 and f1_score=0.3955451769355129default sbert model to_lower_case with DecisionTree has on val set: accuracy=0.7781206907873137 and f1_score=0.3919380960950153

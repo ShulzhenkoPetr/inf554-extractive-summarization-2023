@@ -27,12 +27,12 @@ test_set = ['ES2003']
 test_set = ['ES2003', 'ES2004', 'ES2011', 'ES2014', 'IS1008', 'IS1009', 'TS3003', 'TS3004', 'TS3006', 'TS3007']
 test_set = flatten([[m_id+s_id for s_id in 'abcd'] for m_id in test_set])
 
-path_to_training = Path("../dataset/training")
-path_to_test = Path("../dataset/test")
+path_to_training = Path("dataset/all_training_data")
+path_to_test = Path("dataset/test")
 
 y_training = []
 
-with open("../dataset/training_labels.json", "r") as file:
+with open("dataset/training_labels.json", "r") as file:
     training_labels = json.load(file)
 for train_id in training_set:
     y_training.append(training_labels[train_id])
