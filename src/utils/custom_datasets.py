@@ -1,3 +1,4 @@
+import torch
 from torch.utils.data import Dataset
 
 from utils.utils import get_file_list, get_utterances_from_files, get_labels
@@ -67,7 +68,8 @@ class UtterancesBertDataset(Dataset):
             utt = self.preproc(utt)
 
         enc = self.tokenizer(utt, max_length=self.max_len, return_tensors='pt',
-                             padding=True, truncation=True)
-        enc['label'] = self.labels[idx]
+                             padding='max_length', truncation=True)
+        enc['input_ids'] = torch.reshape(enc['input_ids'], (-1,))
+        enc['labels'] = self.labels[idx]
 
         return enc

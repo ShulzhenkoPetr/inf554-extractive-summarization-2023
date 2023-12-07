@@ -1,0 +1,9 @@
+  0%|                                                                                                               | 0/1 [00:00<?, ?it/s]/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py:1760: UndefinedMetricWarning: F-score is ill-defined and being set to 0.0 due to no true nor predicted samples. Use `zero_division` parameter to control this behavior.
+  _warn_prf(average, "true nor predicted", "F-score is", len(true_sum))
+  0%|                                                                                                               | 0/1 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 132, in <module>
+    finetune_bert()
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 107, in finetune_bert
+    loss = loss_fn(outputs.detach().item(), inputs['labels'])
+RuntimeError: a Tensor with 16 elements cannot be converted to Scalar

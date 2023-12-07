@@ -1,0 +1,8 @@
+0it [00:00, ?it/s]                                                                                                  | 0/1 [00:00<?, ?it/s]
+  0%|                                                                                                               | 0/1 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 132, in <module>
+    finetune_bert()
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 106, in finetune_bert
+    batch_train_f1.append(f1_metric(outputs.detach().numpy().argmax(dim=1), inputs['labels']))
+TypeError: argmax() got an unexpected keyword argument 'dim'

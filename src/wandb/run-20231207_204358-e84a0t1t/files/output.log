@@ -1,0 +1,25 @@
+  0%|                                                                                                               | 0/1 [00:00<?, ?it/s]
+Traceback (most recent call last):
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 132, in <module>
+    finetune_bert()
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/bert_baseline.py", line 106, in finetune_bert
+    batch_train_f1.append(f1_metric(outputs.detach().numpy(), inputs['labels']))
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/src/utils/metrics.py", line 14, in f1_metric
+    return f1_score(labels, preds)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/utils/_param_validation.py", line 214, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py", line 1239, in f1_score
+    return fbeta_score(
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/utils/_param_validation.py", line 187, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py", line 1413, in fbeta_score
+    _, _, f, _ = precision_recall_fscore_support(
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/utils/_param_validation.py", line 187, in wrapper
+    return func(*args, **kwargs)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py", line 1724, in precision_recall_fscore_support
+    labels = _check_set_wise_labels(y_true, y_pred, average, labels, pos_label)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py", line 1501, in _check_set_wise_labels
+    y_type, y_true, y_pred = _check_targets(y_true, y_pred)
+  File "/Users/petrshulzhenko/3-year-ecole/ml-intro/inf554-extractive-summarization-2023/.venv/lib/python3.9/site-packages/sklearn/metrics/_classification.py", line 93, in _check_targets
+    raise ValueError(
+ValueError: Classification metrics can't handle a mix of binary and continuous-multioutput targets

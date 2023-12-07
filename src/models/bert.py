@@ -17,7 +17,10 @@ class Bert(nn.Module):
             nn.Linear(250, 2)
         )
 
-    def forward(self, ids, mask):
-        _, pool_output = self.encoder(ids, attention_mask=mask, return_dict=False)
+    def forward(self, input_ids, attention_mask, ):
+        _, pool_output = self.encoder(input_ids,
+                                      attention_mask=attention_mask,
+                                      # token_type_ids=token_type_ids,
+                                      return_dict=False)
         return self.mlp(pool_output)
 
