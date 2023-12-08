@@ -43,6 +43,34 @@ def get_utterances_from_files(paths):
     return utterances
 
 
+def get_relations_dict(path):
+    with open(path, 'r') as f:
+        lines = f.readlines()
+
+    relations = {0: 'Dialogue begins'}
+    for line in lines:
+        parent, rel, child = line.split(' ')
+        relations[int(child)] = rel
+
+    return relations
+
+
+def get_speaker_relation_utterance_from_files(paths):
+    file_names = [p.split('/')[-1].split('.')[0] for p in paths]
+
+    sentences = []
+
+    for name, path in zip(file_names, paths):
+        transcription = load_json(path)
+        relations = get_relations_dict(path.replace('json', 'txt'))
+        for utt in transcription:
+            try:
+                sentences.append(relations[utt['index']] + " - phrase of " + utt["speaker"] + ": " + utt["text"])
+            except KeyError:
+                sentences.append("Disconnected" + " - phrase of " + utt["speaker"] + ": " + utt["text"])
+    return sentences
+
+
 def get_labels(labels_path, file_paths):
     file_names = [p.split('/')[-1].split('.')[0] for p in file_paths]
 
