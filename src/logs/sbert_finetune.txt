@@ -1,2 +1,4 @@
-finetuned sbert model with DecisionTree has on val set: accuracy=0.7731958762886598 and f1_score=0.3860646996089584
-finetuned sbert model with DecisionTree has on val set: accuracy=0.7953247094359446 and f1_score=0.44269622742714104
+finetuned 0 epochs sbert model with DecisionTree has on val set: accuracy=0.7731958762886598 and f1_score=0.3860646996089584
+finetuned 1 epochs sbert model with DecisionTree has on val set: accuracy=0.7953247094359446 and f1_score=0.44269622742714104
+finetuned 3 epochs sbert model with DecisionTree has on val set: accuracy=0.7983452623284523 and f1_score=0.44895029607033915
+finetuned 8 epochs sbert model with DecisionTree has on val set: accuracy=0.8080635629391293 and f1_score=0.46416131989000914
